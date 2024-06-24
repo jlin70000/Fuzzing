@@ -262,6 +262,13 @@ AFLNET: Collecting results from container 0ad5e67e77bcinvalid output path: direc
 
 AFLNET: I am done!
 
-11. 
+11. PS C:\Users\New User\profuzzbench\subjects\FTP\LightFTP> Get-Service -Name com.docker.service
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  com.docker.service Docker Desktop Service
+//Docker is Running
+
+12.
 
 
