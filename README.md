@@ -69,3 +69,48 @@ What's Next?
 
 C:\Users\New User\profuzzbench\subjects\FTP\LightFTP>
 
+
+
+Testing Profuzzbench
+
+cd $PFBENCH //Current directory to variable 
+mkdir results-lightftp //Creates new directory in current working directory to store results
+
+profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &
+profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5
+
+First Command (aflnet fuzzing):
+
+"profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &"
+Arguments breakdown:
+lightftp: Docker image name.
+4: Number of runs (isolated Docker containers).
+results-lightftp: Path to the folder where results will be saved.
+aflnet: Fuzzer name.
+out-lightftp-aflnet: Name of the output folder created inside the Docker container.
+"-P FTP -D 10000 -q 3 -s 3 -E -K": Options needed for fuzzing AFLNet, specifying parameters like protocol (FTP), dictionary size (10000), and other specific options (-q 3 -s 3 -E -K).
+3600: Timeout for fuzzing in seconds (1 hour).
+5: Skip count for coverage calculation.
+The & at the end runs this command in the background, allowing you to continue using the terminal while the fuzzing runs.
+
+Second Command (aflnwe fuzzing):
+
+"profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5"
+Arguments breakdown:
+lightftp: Docker image name (same as above).
+4: Number of runs.
+results-lightftp: Results directory.
+aflnwe: Fuzzer name.
+out-lightftp-aflnwe: Output folder name inside Docker.
+"-D 10000 -K": Options for AFLnwe, specifying dictionary size (10000) and other options (-K).
+3600: Timeout for fuzzing (1 hour).
+5: Skip count for coverage calculation.
+
+Immediate Results/Actions:
+1. Git Bash opens black
+2. New command opens in terminal
+3. "jobs" to see if fuzzing is running in the background - no result
+4. ps aux, docker ps, sudo systemct1 status docker, all do not yield results
+5. docker --version in terminal to check if installed
+6. docker info
+7. 
