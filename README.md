@@ -294,6 +294,21 @@ $ cd "$PFBENCH/subjects/FTP/LightFTP"
 New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
 $ docker build . -t lightftp
 //Lets try to run the script again
+OUTPUT:
+AFLNET: Fuzzing in progress ...
+AFLNET: Waiting for the following containers to stop:  7fe0d936e503 c41ce4df033f 2a4f11ae7848 08c23eec0749
+AFLNET: Collecting results and save them to /results-lightftp
+AFLNET: Collecting results from container 7fe0d936e503Error response from daemon: Could not find the file /home/ubuntu/experiments//out-lightftp-aflnet.tar.gz in container 7fe0d936e503
+
+AFLNET: Collecting results from container c41ce4df033fError response from daemon: Could not find the file /home/ubuntu/experiments//out-lightftp-aflnet.tar.gz in container c41ce4df033f
+
+AFLNET: Collecting results from container 2a4f11ae7848Error response from daemon: Could not find the file /home/ubuntu/experiments//out-lightftp-aflnet.tar.gz in container 2a4f11ae7848
+
+AFLNET: Collecting results from container 08c23eec0749Error response from daemon: Could not find the file /home/ubuntu/experiments//out-lightftp-aflnet.tar.gz in container 08c23eec0749
+
+AFLNET: I am done!
+
+
 
 13. 
 
