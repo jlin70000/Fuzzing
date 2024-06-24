@@ -200,4 +200,16 @@ WARNING: No blkio throttle.write_bps_device support
 WARNING: No blkio throttle.read_iops_device support
 WARNING: No blkio throttle.write_iops_device support
 WARNING: daemon is not using the default seccomp profile
-7. 
+//docker seems to be working now
+7. Run Git Bash as admin
+Set Environment Variables and Paths:
+cd /c/Users/New\ User/profuzzbench
+
+Set the PFBENCH environment variable:
+export PFBENCH=$(pwd)
+export PATH=$PATH:$PFBENCH/scripts/execution:$PFBENCH/scripts/analysis
+
+Build the Docker Image for LightFTP (if not already built):
+Navigate to the LightFTP directory and build the Docker image:
+cd $PFBENCH/subjects/FTP/LightFTP
+docker build . -t lightftp
