@@ -310,6 +310,15 @@ AFLNET: I am done!
 
 
 
-13. 
+13. Inspecting Docker Containers:
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ docker exec -it <08c23eec0749> /bin/bash
+bash: 08c23eec0749: No such file or directory
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ docker logs <08c23eec0749>
+bash: syntax error near unexpected token `newline'
+
+
 
 
