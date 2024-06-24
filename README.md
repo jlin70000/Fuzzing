@@ -215,3 +215,24 @@ cd $PFBENCH/subjects/FTP/LightFTP
 docker build . -t lightftp
 8. Run Fuzzing Scripts Again
 Output: 
+m Files/Git/usr/bin/bash: no such file or directory: unknown.
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+
+AFLNET: Fuzzing in progress ...
+AFLNET: Waiting for the following containers to stop:  51e2d37d160c 0232c511a732 7d1f6344246c 1fda983fd62f
+AFLNET: Collecting results and save them to results-lightftp
+AFLNET: Collecting results from container 51e2d37d160cinvalid output path: directory "C:\\Users\\New User\\profuzzbench\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 0232c511a732invalid output path: directory "C:\\Users\\New User\\profuzzbench\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 7d1f6344246cinvalid output path: directory "C:\\Users\\New User\\profuzzbench\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 1fda983fd62finvalid output path: directory "C:\\Users\\New User\\profuzzbench\\results-lightftp" does not exist
+
+AFLNET: I am done!
+^C
+[1]+  Done                    profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5
+// Not the Expected Output
+
+9. 
