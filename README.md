@@ -213,3 +213,5 @@ Build the Docker Image for LightFTP (if not already built):
 Navigate to the LightFTP directory and build the Docker image:
 cd $PFBENCH/subjects/FTP/LightFTP
 docker build . -t lightftp
+8. Run Fuzzing Scripts Again
+Output: 
