@@ -269,6 +269,32 @@ Status   Name               DisplayName
 Running  com.docker.service Docker Desktop Service
 //Docker is Running
 
-12.
+12. Since it says multiple directories DNE:
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ pwd
+/c/Users/New User/profuzzbench/subjects/FTP/LightFTP
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ export PFBENCH="/c/Users/New User/profuzzbench"
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ export PATH="$PATH:$PFBENCH/scripts/execution:$PFBENCH/scripts/analysis"
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ ls "$PFBENCH/scripts/execution"
+profuzzbench_build_all.sh*  profuzzbench_exec_all.sh*  profuzzbench_exec_common.sh*  profuzzbench_stateafl_only.sh*
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ ls "$PFBENCH/scripts/analysis"
+coverage_plotting.py  profuzzbench_generate_all.sh*  profuzzbench_generate_csv.sh*  profuzzbench_plot.py*
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ cd "$PFBENCH/subjects/FTP/LightFTP"
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ docker build . -t lightftp
+//Lets try to run the script again
+
+13. 
 
 
