@@ -242,6 +242,26 @@ profuzzbench_exec_common.sh lightftp 4 /results-lightftp aflnet /out-lightftp-af
 
 # Second fuzzing command with aflnwe
 profuzzbench_exec_common.sh lightftp 4 /results-lightftp aflnwe /out-lightftp-aflnwe "-D 10000 -K" 3600 5
+
+OUTPUT:
+$ docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "C:/Program Files/Git/usr/bin/bash": stat C:/Program Files/Git/usr/bin/bash: no such file or directory: unknown.
+
+AFLNET: Fuzzing in progress ...
+AFLNET: Waiting for the following containers to stop:  3cd606b1c9ef 7a82d466001a 03006c191d8a 0ad5e67e77bc
+AFLNET: Collecting results and save them to /results-lightftp
+AFLNET: Collecting results from container 3cd606b1c9efinvalid output path: directory "C:\\Program Files\\Git\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 7a82d466001ainvalid output path: directory "C:\\Program Files\\Git\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 03006c191d8ainvalid output path: directory "C:\\Program Files\\Git\\results-lightftp" does not exist
+
+AFLNET: Collecting results from container 0ad5e67e77bcinvalid output path: directory "C:\\Program Files\\Git\\results-lightftp" does not exist
+
+AFLNET: I am done!
+
 11. 
 
 
