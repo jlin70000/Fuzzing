@@ -322,3 +322,64 @@ bash: syntax error near unexpected token `newline'
 
 
 
+
+
+
+
+
+
+
+
+GitLab Fuzzer
+
+1. Install Python 2.7:
+
+2. Install Ruby 2.3:
+
+2. Install Doxygen, Java, xmllint, xsltproc:
+
+Doxygen: Install Doxygen.
+Java: Install Java.
+xmllint and xsltproc: These are part of the libxml2-utils package. Install using a package manager like choco or manually from the official sources.
+
+3. NET Framework 4.6.1:
+
+Install from the Microsoft website.
+4. Visual Studio 2015 or 2017 with C++ compilers:
+
+Download and install from the Visual Studio website.
+5. TypeScript Compiler (tsc) v2.8:
+
+Install using npm: npm install -g typescript@2.8.
+6. Intel Pin:
+
+Follow the instructions in 3rdParty/pin/README.md.
+
+7. Set Registry Entries via PowerShell:
+new-itemproperty -path "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" -name "SchUseStrongCrypto" -Value 1 -PropertyType "DWord";
+new-itemproperty -path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319" -name "SchUseStrongCrypto" -Value 1 -PropertyType "DWord";
+
+8. Required Packages:
+sudo apt-get update
+sudo apt-get install gcc g++ g++-multilib python2.7 ruby2.3 doxygen default-jre libxml2-utils xsltproc mono-complete nodejs npm
+
+9. Typescript compiler:
+sudo npm install -g typescript@2.8
+
+10. Download Intel Pin:
+Follow the instructions in 3rdParty/pin/README.md.
+
+11. Clone the REpository:
+git clone <[repository_url](https://gitlab.com/gitlab-org/security-products/protocol-fuzzer-ce/)>
+cd <repository_directory>
+
+12. Configure Build:
+waf configure
+waf build
+waf install
+
+Installation Notes:
+1. Doxygen will not open "Microsoft Defender SmartScreen prevented an unrecognized app from starting"
+2. Requires 3 programming languages
+3. Requires build commands, troubleshooting, running unit tests, logging, etc.
+
