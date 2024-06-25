@@ -319,9 +319,41 @@ New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
 $ docker logs <08c23eec0749>
 bash: syntax error near unexpected token `newline'
 
+Installation Notes:
+1. Restarting GitBash:
+New User@LAPTOP-KDGIBE6R MINGW64 ~
+$ cd profuzzbench
 
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench (master)
+$ cd subjects/FTP/LightFTP
 
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ cd %PFBENCH%
+bash: cd: %PFBENCH%: No such file or directory
 
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ set PFBENCH=%cd%
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$ set PATH=%PATH%;%PFBENCH$\scripts\execution;%PFBENCH%\scripts\analysis
+bash: fg: %PFBENCH$scriptsexecution: no such job
+bash: fg: %PFBENCH%scriptsanalysis: no such job
+
+New User@LAPTOP-KDGIBE6R MINGW64 ~/profuzzbench/subjects/FTP/LightFTP (master)
+$
+
+2. Restarting Terminal
+C:\Users\New User\profuzzbench\subjects\FTP\LightFTP>profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &
+'profuzzbench_exec_common.sh' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\New User\profuzzbench\subjects\FTP\LightFTP>profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5
+'profuzzbench_exec_common.sh' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\New User\profuzzbench\subjects\FTP\LightFTP>
+
+3. Difficult to get back into a working directory
 
 
 
