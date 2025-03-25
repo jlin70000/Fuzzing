@@ -363,142 +363,32 @@ Running through process again using a Virtual Machine on Oracle VM VirtualBox
 2. Open Terminal
 3. To confirm UBUNTU Version, run "lsb_release -a"
 4. Refresh package list and upgrade outdates packages, run "sudo apt update && sudo apt upgrade -y"
-5.
-6.Clone the profuzzbench repository: Inside the VM, start by cloning the repository:
-
-bash
-Copy
-Edit
-git clone https://github.com/profuzzbench/profuzzbench.git
-cd profuzzbench
-Set environment variables: Run these commands to set up the environment variables for profuzzbench:
-
-bash
-Copy
-Edit
-export PFBENCH=$(pwd)  # Set PFBENCH to the current directory
-export PATH=$PATH:$PFBENCH/scripts/execution:$PFBENCH/scripts/analysis
-7. Step 1: Build a Docker image on the VM
+5. Clone the profuzzbench repos, use
+   "git clone https://github.com/profuzzbench/profuzzbench.git"
+   "cd profuzzbench"
+6. Set environment variables: Run these commands to set up the environment variables for profuzzbench:
+   "export PFBENCH=$(pwd)"
+   "export PATH=$PATH:$PFBENCH/scripts/execution:$PFBENCH/scripts/analysis"
+7. Build a Docker image on the VM
 Navigate to the LightFTP directory: Inside your VM, go to the LightFTP subject folder:
+   "cd $PFBENCH"
+   "cd subjects/FTP/LightFTP"
+8. Build the Docker image: Build the Docker image for LightFTP inside the VM:
+   "docker build . -t lightftp"
+   
+   Error:
+   pali-user@pali-user-VirtualBox:~/profuzzbench/subjects/FTP/LightFTP$ docker build . -t lightftp
+   ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
 
-bash
-Copy
-Edit
-cd $PFBENCH
-cd subjects/FTP/LightFTP
-Build the Docker image: Build the Docker image for LightFTP inside the VM:
-
-bash
-Copy
-Edit
-docker build . -t lightftp
-This will create the Docker image tagged as lightftp, which you will use in the fuzzing process.
-
-Step 2: Run fuzzing on the VM
-Create a results directory on the VM: Make sure you're in the main profuzzbench directory and create a directory to store the fuzzing results:
-
-bash
-Copy
-Edit
-cd $PFBENCH
-mkdir results-lightftp
-Run the fuzzing experiments: Now, you can run the fuzzing using the profuzzbench_exec_common.sh script. The following commands run the fuzzers (AFLNet and AFLnwe) for 60 minutes (3600 seconds) each:
-
-bash
-Copy
-Edit
-profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &
-profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5
-These commands will launch the fuzzing experiments in parallel on the VM, each in a Docker container. Each fuzzer will be assigned a different output folder inside the results-lightftp directory.
-
-Monitor the output: You'll see output similar to this:
-
-text
-Copy
-Edit
-AFLNET: Fuzzing in progress ...
-AFLNET: Waiting for the following containers to stop: f2da4b72b002 b7421386b288 cebbbc741f93 5c54104ddb86
-AFLNET: Collecting results and saving them to results-lightftp
-AFLNET: Collecting results from container f2da4b72b002
-AFLNET: Collecting results from container b7421386b288
-AFLNET: Collecting results from container cebbbc741f93
-AFLNET: Collecting results from container 5c54104ddb86
-AFLNET: I am done!
-Step 3: Collect the results on the VM
-Navigate to the results directory: After fuzzing is complete, move to the directory where the results are saved:
-
-bash
-Copy
-Edit
-cd $PFBENCH/results-lightftp
-Generate CSV coverage data: Use the profuzzbench_generate_csv.sh script to gather code coverage results over time. Run the following two commands to collect data for AFLNet and AFLnwe:
-
-bash
-Copy
-Edit
-profuzzbench_generate_csv.sh lightftp 4 aflnet results.csv 0
-profuzzbench_generate_csv.sh lightftp 4 aflnwe results.csv 1
-This will generate the results.csv file with code coverage statistics. It will include line coverage (l_per, l_abs) and branch coverage (b_per, b_abs) for both fuzzers over time.
-
-Example output in results.csv:
-
-csv
-Copy
-Edit
-time,subject,fuzzer,run,cov_type,cov
-1600905795,lightftp,aflnwe,1,l_per,25.9
-1600905795,lightftp,aflnwe,1,l_abs,292
-1600905795,lightftp,aflnwe,1,b_per,13.3
-1600905795,lightftp,aflnwe,1,b_abs,108
-Additional Considerations for the VM:
-Resources: Ensure your virtual machine has enough CPU, memory, and storage to handle running multiple Docker containers simultaneously. You may need to adjust the VM's allocated resources depending on the workload.
-
-Docker setup: Ensure Docker is correctly installed and configured on your virtual machine. If not, install Docker by following these instructions: Install Docker on Linux.
-
-Networking: If the virtual machine is using a private network, ensure that Docker is properly configured to run in that environment. You may need to check Docker's network settings.
-
-Access to results: If you want to transfer the results or Docker images back to your local machine, you can use tools like scp or rsync to copy files from the VM to your local machine.
-
-For example:
-
-bash
-Copy
-Edit
-scp -r username@vm-ip-address:/path/to/results-lightftp /local/path/to/results/
-By following these steps, you should be able to replicate the fuzzing and coverage collection process on your virtual machine. Let me know if you face any issues!
+9. Add your user to the Docker group, use:
+    "getent group docker"
+    "sudo usermod -aG docker $JEREMY"
+10. After closing terminal and reopening, docker build command still produces same error
+11. Navigate back to /profuzzbench/subjects/FTP/LightFTP directory, and get rid of permissions, run "sudo docker build . -t lightftp"
+12. 
 
 
 
-
-
-
-
-You said:
-pali-user@pali-user-VirtualBox:~/profuzzbench/subjects/FTP/LightFTP$ docker build . -t lightftp
-ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
-
-
-ChatGPT said:
-The error you're encountering (permission denied while trying to connect to the Docker daemon socket) is related to permissions for running Docker commands. In most Linux systems, Docker requires root privileges to interact with the Docker daemon.
-
-Here’s how you can resolve the issue:
-
-Step 1: Add your user to the Docker group
-Check if the Docker group exists: Run the following command to check if the docker group is already created:
-
-bash
-Copy
-Edit
-getent group docker
-Add your user to the Docker group: If the docker group exists, add your user to it using the usermod command:
-
-bash
-Copy
-Edit
-sudo usermod -aG docker $USER
-This command appends your user ($USER) to the docker group.
-
-Log out and log back in: After adding your user to the Docker group, you need to log out and log back in for the changes to take effect
    
 
 
