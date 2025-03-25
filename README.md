@@ -385,7 +385,74 @@ Navigate to the LightFTP directory: Inside your VM, go to the LightFTP subject f
     "sudo usermod -aG docker $JEREMY"
 10. After closing terminal and reopening, docker build command still produces same error
 11. Navigate back to /profuzzbench/subjects/FTP/LightFTP directory, and get rid of permissions, run "sudo docker build . -t lightftp"
-12. 
+12. Store output in results, run "mkdir results-lightftp"
+13. Run scripts:
+    "profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &"
+    "profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5"
+
+    ERROR:
+   [1] 11708
+   profuzzbench_exec_common.sh: command not found
+   profuzzbench_exec_common.sh: command not found
+   [1]+  Exit 127                profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5
+
+14. Set correct environmental variables: 
+   "export PFBENCH=/home/pali-user/profuzzbench"
+   "export PATH=$PATH:$PFBENCH/scripts/execution:$PFBENCH/scripts/analysis"
+15. Run fuzzing script again...
+    ERROR:
+    [1] 11735
+pali-user@pali-user-VirtualBox:~$ docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+
+Run 'docker run --help' for more information
+docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+
+Run 'docker run --help' for more information
+docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+
+Run 'docker run --help' for more information
+docker: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+
+Run 'docker run --help' for more information
+
+AFLNET: Fuzzing in progress ...
+AFLNET: Waiting for the following containers to stop: docker: 'docker wait' requires at least 1 argument
+
+Usage:  docker wait CONTAINER [CONTAINER...]
+
+See 'docker wait --help' for more information
+
+AFLNET: Collecting results and save them to results-lightftp
+AFLNET: I am done!
+
+16. Correct the path for results, run "mkdir /home/pali-user/profuzzbench/scripts/results-lightftp"
+
+17. Execute fuzzing script with full and correct path, run "sudo /home/pali-user/profuzzbench/scripts/execution/profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnet out-lightftp-aflnet "-P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5"
+
+     CORRECT OUTPUT:
+AFLNET: Fuzzing in progress ...
+AFLNET: Waiting for the following containers to stop:  e9e3294763a6 ef6f2d330509 efa7a50711b0 6ec0e5ab3743
+AFLNET: Collecting results and save them to results-lightftp
+AFLNET: Collecting results from container e9e3294763a6
+AFLNET: Collecting results from container ef6f2d330509
+AFLNET: Collecting results from container efa7a50711b0
+AFLNET: Collecting results from container 6ec0e5ab3743
+AFLNET: I am done!
+
+19. Do the same for AFLNWE, run "sudo /home/pali-user/profuzzbench/scripts/execution/profuzzbench_exec_common.sh lightftp 4 results-lightftp aflnwe out-lightftp-aflnwe "-D 10000 -K" 3600 5"
+20. Check the files in results, run "ls /home/pali-user/profuzzbench/scripts/results-lightftp"
+    
+    CORRECT OUTPUT:
+ out-lightftp-aflnet_1.tar.gz  out-lightftp-aflnet_3.tar.gz  out-lightftp-aflnwe_1.tar.gz  out-lightftp-aflnwe_3.tar.gz
+ out-lightftp-aflnet_2.tar.gz  out-lightftp-aflnet_4.tar.gz  out-lightftp-aflnwe_2.tar.gz  out-lightftp-aflnwe_4.tar.gz
+
+21. 
+
+
+
+ 
+
+
 
 
 
