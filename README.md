@@ -446,7 +446,170 @@ AFLNET: I am done!
  out-lightftp-aflnet_1.tar.gz  out-lightftp-aflnet_3.tar.gz  out-lightftp-aflnwe_1.tar.gz  out-lightftp-aflnwe_3.tar.gz
  out-lightftp-aflnet_2.tar.gz  out-lightftp-aflnet_4.tar.gz  out-lightftp-aflnwe_2.tar.gz  out-lightftp-aflnwe_4.tar.gz
 
-21. 
+21. Generate CSV for AFLNET and AFLNWE results (go to directory first if starting new session)
+run "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_generate_csv.sh lightftp 4 aflnet results.csv 0"
+and then "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_generate_csv.sh lightftp 4 aflnwe results.csv 1"
+22. Create visualization for results
+run "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py -i results.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png"
+ERROR:
+/usr/bin/env: ‘python’: No such file or directory
+
+run "sudo ln -s /usr/bin/python3 /usr/bin/python"
+run visualization command again
+ERROR:
+Traceback (most recent call last):
+  File "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py", line 4, in <module>
+    from pandas import read_csv
+ModuleNotFoundError: No module named 'pandas'
+
+run "sudo apt update
+sudo apt install python3-pip -y
+pip3 install pandas matplotlib" 
+run visualizaiton command again
+
+ERROR:
+Setting up build-essential (12.10ubuntu1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.4) ...
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+    
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+    
+    See /usr/share/doc/python3.12/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+pali-user@pali-user-VirtualBox:~/profuzzbench/scripts/results-lightftp$ /home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py -i results.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png
+Traceback (most recent call last):
+  File "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py", line 4, in <module>
+    from pandas import read_csv
+ModuleNotFoundError: No module named 'pandas'
+
+
+run "sudo apt install python3.12-venv" then "python3 -m venv venv" then "source venv/bin/activate"
+run "pip install pandas matplotlib" again. 
+run visualization command again "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py -i results.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png"
+
+ERROR:
+(venv) pali-user@pali-user-VirtualBox:~/profuzzbench/scripts/results-lightftp$ /home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py -i results.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png
+Traceback (most recent call last):
+  File "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py", line 96, in <module>
+    main(args.csv_file, args.put, args.runs, args.cut_off, args.step, args.out_file)
+  File "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py", line 43, in main
+    cov_total += df3.tail(1).iloc[0, 5]
+                 ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/pali-user/profuzzbench/scripts/results-lightftp/venv/lib/python3.12/site-packages/pandas/core/indexing.py", line 1183, in __getitem__
+    return self.obj._get_value(*key, takeable=self._takeable)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pali-user/profuzzbench/scripts/results-lightftp/venv/lib/python3.12/site-packages/pandas/core/frame.py", line 4217, in _get_value
+    return series._values[index]
+           ~~~~~~~~~~~~~~^^^^^^^
+IndexError: index 0 is out of bounds for axis 0 with size 0
+
+
+run "head results.csv" to check contents.
+The timestamps are missing so script cant plot.
+run "nano add_timestamps.py" to create a python script that will add timestamps for you
+SCRIPT:
+import csv
+import time
+
+input_file = 'results.csv'
+output_file = 'results_with_timestamps.csv'
+
+# Starting timestamp (current Unix time)
+start_timestamp = int(time.time())
+
+# Increment (seconds) per line
+increment = 10
+
+with open(input_file, 'r', newline='') as infile, open(output_file, 'w', newline='') as outfile:
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
+
+    # Read header and write it as is
+    header = next(reader)
+    writer.writerow(header)
+
+    current_timestamp = start_timestamp
+
+    for row in reader:
+        # Replace empty timestamp with current_timestamp
+        row[0] = str(current_timestamp)
+        writer.writerow(row)
+        current_timestamp += increment
+
+print(f"Timestamps added. Output saved to {output_file}")
+
+
+run "python add_timestamps.py" and then "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_plot.py -i results_with_timestamps.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png"
+run "ls -l cov_over_time.png" to see if png was created, then "xdg-open cov_over_time.png" to open png file. 
+
+PLOT REPORT:
+The plot cov_over_time.png visualizes how code coverage evolves over the fuzzing duration for the subject program lightftp using two fuzzers: aflnet and aflnwe.
+X-axis (Time): Represents the elapsed time in seconds or minutes during which fuzzing was performed.
+Y-axis (Coverage %): Shows the percentage of code coverage achieved over time. Coverage can be line coverage or branch coverage, reflecting how much of the program’s code was exercised.
+
+The plot allows us to:
+Compare fuzzers: See which fuzzer finds new program states or exercises code more efficiently over time.
+Monitor progress: Identify if coverage plateaus (fuzzer stalls) or continues to increase (fuzzer exploring new paths).
+Evaluate effectiveness: Higher coverage generally correlates with better exploration of the program’s behavior, potentially leading to more bug findings.
+In this experiment, both AFLNet and AFLNWE generated coverage data from 4 fuzzing runs each. The plot aggregates this data, showing their relative performance and fuzzing efficiency on lightftp.
+
+From the coverage plot, AFLNWE achieves higher edge coverage compared to AFLNet. This means AFLNWE exercises more unique branches (edges) in the program’s control flow graph, indicating a deeper or broader exploration of program logic.
+Higher edge coverage suggests AFLNWE may be more effective at discovering complex program states and potentially uncovering more subtle bugs than AFLNet in this fuzzing campaign.
+
+
+
+SETTING UP DUAL VM ENVIRONMENT
+1. New VM
+2. In the "Name and Operating System" window:
+Name: TargetHost (or something meaningful)
+Type: Linux
+Version: Ubuntu (64-bit)
+Memory Size:
+Allocate at least 2048 MB (2 GB) RAM
+
+Hard Disk:
+Select Create a virtual hard disk now
+Set disk size to at least 20 GB
+
+Click “Finish”
+
+✅ Next: Attach the Ubuntu ISO
+Select your new TargetHost VM in the list.
+Click Settings → Storage
+Under Controller: IDE, click Empty, then on the right side click the CD icon → Choose a disk file…
+Select your Ubuntu ISO file (same one used for the first VM)
+Click OK to save.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
