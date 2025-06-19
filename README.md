@@ -684,4 +684,56 @@ Installation Notes:
 
 BOOFUZZ Installation
 
-move ftp_simple.py to boofuzz directory in your VM. run it from there
+move ftp_simple.py to boofuzz directory in your VM. Run it from there.
+
+Last Steps:
+pali-user@pali-user-VirtualBox:~$ sudo su
+[sudo] password for pali-user: 
+root@pali-user-VirtualBox:/home/pali-user# cd /opt
+root@pali-user-VirtualBox:/opt# ls
+boofuzz  containerd  VBoxGuestAdditions-7.0.10
+root@pali-user-VirtualBox:/opt# cd boofuzz
+root@pali-user-VirtualBox:/opt/boofuzz# ls l
+ls: cannot access 'l': No such file or directory
+root@pali-user-VirtualBox:/opt/boofuzz# ls -l
+total 4
+drwxr-xr-x 5 root root 4096 Jun 19 13:36 env
+root@pali-user-VirtualBox:/opt/boofuzz# cd env
+root@pali-user-VirtualBox:/opt/boofuzz/env# ls -l
+total 16
+drwxr-xr-x 2 root root 4096 Jun 19 13:40 bin
+drwxr-xr-x 3 root root 4096 Jun 19 13:36 include
+drwxr-xr-x 3 root root 4096 Jun 19 13:36 lib
+lrwxrwxrwx 1 root root    3 Jun 19 13:36 lib64 -> lib
+-rw-r--r-- 1 root root  155 Jun 19 13:36 pyvenv.cfg
+root@pali-user-VirtualBox:/opt/boofuzz/env# cd bin
+root@pali-user-VirtualBox:/opt/boofuzz/env/bin# ls -l
+total 52
+-rw-r--r-- 1 root root 2018 Jun 19 13:36 activate
+-rw-r--r-- 1 root root  910 Jun 19 13:36 activate.csh
+-rw-r--r-- 1 root root 2185 Jun 19 13:36 activate.fish
+-rw-r--r-- 1 root root 9033 Jun 19 13:36 Activate.ps1
+-rwxr-xr-x 1 root root  222 Jun 19 13:40 boo
+-rwxr-xr-x 1 root root  220 Jun 19 13:40 flask
+-rwxr-xr-x 1 root root  233 Jun 19 13:39 pip
+-rwxr-xr-x 1 root root  233 Jun 19 13:39 pip3
+-rwxr-xr-x 1 root root  233 Jun 19 13:39 pip3.12
+-rwxr-xr-x 1 root root  232 Jun 19 13:40 pyserial-miniterm
+-rwxr-xr-x 1 root root  234 Jun 19 13:40 pyserial-ports
+lrwxrwxrwx 1 root root    7 Jun 19 13:36 python -> python3
+lrwxrwxrwx 1 root root   16 Jun 19 13:36 python3 -> /usr/bin/python3
+lrwxrwxrwx 1 root root    7 Jun 19 13:36 python3.12 -> python3
+root@pali-user-VirtualBox:/opt/boofuzz/env/bin# cd ~
+root@pali-user-VirtualBox:~# cd Downloads
+bash: cd: Downloads: No such file or directory
+root@pali-user-VirtualBox:~# ls -l
+total 4
+drwx------ 8 root root 4096 Jun 25  2024 snap
+root@pali-user-VirtualBox:~# cd /home/pali-user/Downloads/
+root@pali-user-VirtualBox:/home/pali-user/Downloads# python3 ftp_simple.py
+Traceback (most recent call last):
+  File "/home/pali-user/Downloads/ftp_simple.py", line 4, in <module>
+    from boofuzz import *
+ModuleNotFoundError: No module named 'boofuzz'
+root@pali-user-VirtualBox:/home/pali-user/Downloads# 
+
