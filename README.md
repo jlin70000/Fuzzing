@@ -446,7 +446,7 @@ AFLNET: I am done!
  out-lightftp-aflnet_1.tar.gz  out-lightftp-aflnet_3.tar.gz  out-lightftp-aflnwe_1.tar.gz  out-lightftp-aflnwe_3.tar.gz
  out-lightftp-aflnet_2.tar.gz  out-lightftp-aflnet_4.tar.gz  out-lightftp-aflnwe_2.tar.gz  out-lightftp-aflnwe_4.tar.gz
 
-21. Generate CSV for AFLNET and AFLNWE results (go to directory first if starting new session)
+21. Generate CSV for AFLNET and AFLNWE results (cd /home/pali-user/profuzzbench/scripts/results-lightftp)
 run "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_generate_csv.sh lightftp 4 aflnet results.csv 0"
 and then "/home/pali-user/profuzzbench/scripts/analysis/profuzzbench_generate_csv.sh lightftp 4 aflnwe results.csv 1"
 22. Create visualization for results
