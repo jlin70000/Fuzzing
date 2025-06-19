@@ -679,3 +679,9 @@ Installation Notes:
 2. Requires 3 programming languages
 3. Requires build commands, troubleshooting, running unit tests, logging, etc.
 
+
+
+
+BOOFUZZ Installation
+
+move ftp_simple.py to boofuzz directory in your VM. run it from there
