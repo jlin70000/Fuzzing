@@ -741,7 +741,14 @@ root@pali-user-VirtualBox:/home/pali-user/Downloads#
 Open environment:
 pali-user@pali-user-VirtualBox:~$ source /opt/boofuzz/env/bin/activate
 (env) pali-user@pali-user-VirtualBox:~$ cd /home/pali-user/Downloads
+
+ 1. Open wireshark on TargetVM
+ 2. ping TargetVM
+ 3. telnet TargetVM 21
+ 4. enp0s3 interface to start capture
+ 5. ip.addr == 10.0.0.80 && tcp.port == 21
 (env) pali-user@pali-user-VirtualBox:~/Downloads$ python3 ftp_simple.py
 
-
+Session 1 Report:
+During this fuzzing session, you successfully set up and ran Boofuzz against an FTP server running vsftpd 3.0.5 on your target virtual machine. You confirmed network connectivity between your fuzzer VM and target by establishing a manual telnet connection to port 21, which showed the expected FTP greeting. Running your ftp_simple.py fuzzing script, Boofuzz generated tens of thousands of mutated FTP commands, primarily targeting the USER command with various malformed inputs. Wireshark captured over 23,000 packets, allowing you to closely analyze the communication between the fuzzer and the FTP server. Upon inspecting the captured packets, you observed that the FTP server consistently responded with standard error codes, such as 530, indicating failed login attempts, and frequently reset connections in response to invalid inputs. This behavior demonstrated that while the server was resilient against the malformed inputs sent by Boofuzz, it did not crash or exhibit unexpected faults. Throughout the session, the FTP server handled all fuzzed inputs gracefully, logging all attempts but maintaining stable operation. This indicates the server’s robustness and suggests that your fuzzing template was functioning correctly but did not yet probe deeply enough to uncover potential vulnerabilities. The session provided a solid foundation for further exploration, including fuzzing additional FTP commands, increasing payload complexity, or testing different targets. Overall, this fuzzing effort validated your setup and provided valuable data for deeper analysis and refinement in future tests.
 
