@@ -737,3 +737,11 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'boofuzz'
 root@pali-user-VirtualBox:/home/pali-user/Downloads# 
 
+
+Open environment:
+pali-user@pali-user-VirtualBox:~$ source /opt/boofuzz/env/bin/activate
+(env) pali-user@pali-user-VirtualBox:~$ cd /home/pali-user/Downloads
+(env) pali-user@pali-user-VirtualBox:~/Downloads$ python3 ftp_simple.py
+
+
+
