@@ -602,6 +602,7 @@ Click OK to save.
 1. build SSHD server
 2. use AI to update script to fuzz on ssh server using boofuzz
 3. use different AI tools and compare
+4. create table to compare findings from each AI tool
 
 
 
