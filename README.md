@@ -757,3 +757,53 @@ pali-user@pali-user-VirtualBox:~$ source /opt/boofuzz/env/bin/activate
 Session 1 Report:
 During this fuzzing session, you successfully set up and ran Boofuzz against an FTP server running vsftpd 3.0.5 on your target virtual machine. You confirmed network connectivity between your fuzzer VM and target by establishing a manual telnet connection to port 21, which showed the expected FTP greeting. Running your ftp_simple.py fuzzing script, Boofuzz generated tens of thousands of mutated FTP commands, primarily targeting the USER command with various malformed inputs. Wireshark captured over 23,000 packets, allowing you to closely analyze the communication between the fuzzer and the FTP server. Upon inspecting the captured packets, you observed that the FTP server consistently responded with standard error codes, such as 530, indicating failed login attempts, and frequently reset connections in response to invalid inputs. This behavior demonstrated that while the server was resilient against the malformed inputs sent by Boofuzz, it did not crash or exhibit unexpected faults. Throughout the session, the FTP server handled all fuzzed inputs gracefully, logging all attempts but maintaining stable operation. This indicates the server’s robustness and suggests that your fuzzing template was functioning correctly but did not yet probe deeply enough to uncover potential vulnerabilities. The session provided a solid foundation for further exploration, including fuzzing additional FTP commands, increasing payload complexity, or testing different targets. Overall, this fuzzing effort validated your setup and provided valuable data for deeper analysis and refinement in future tests.
 
+
+
+AI Boofuzz (ChatGPT and Copilot)
+1. On target VM
+2. sudo apt update
+sudo apt install openssh-server -y
+sudo systemctl enable ssh
+sudo systemctl start ssh
+3. confirm running : systemctl status ssh
+4. On fuzzer VM :
+source /opt/boofuzz/env/bin/activate
+cd /home/pali-user/Downloads
+
+5. ChatGPT prompt: 
+Write a Boofuzz fuzzing script that targets an FTP server on port 21. Focus only on fuzzing the USER command with various string inputs. Keep it minimal.
+6. ChatGPT script:
+from boofuzz import *
+
+def main():
+    session = Session(
+        target=Target(
+            connection=SocketConnection("10.0.0.80", 22, proto="tcp")  # <-- replace with your TargetVM IP
+        ),
+    )
+
+    # Simple test: fuzz the SSH banner string
+    s_initialize("SSH Banner")
+    s_string("SSH-2.0-OpenSSH_8.9p1", fuzzable=True)
+
+    session.connect(s_get("SSH Banner"))
+    session.fuzz()
+
+if __name__ == "__main__":
+    main()
+
+6. run it : python3 ssh_simple_ai1.py
+7. Open wireshark on target and filter to tcp.port == 22
+8. save after fuzzing completes
+9. Copilot prompt : 
+Write a Boofuzz fuzzing script that targets an SSH server running on port 22. 
+The script should fuzz multiple parts of the SSH handshake, not just the banner. 
+Include fuzzing of:
+- SSH banner exchange
+- Key exchange payloads
+- Authentication requests (e.g., username strings)
+
+Use a mix of short and long strings, random payloads, and nested structures. 
+Save it as ssh_complex_ai2.py.
+
+
